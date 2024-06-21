@@ -12,6 +12,10 @@ public:
 	bool climbable;
 	std::shared_ptr<std::vector<std::string>> people;
 	std::vector<std::string>* people2;
+
+	~Mountain() {
+		delete people2;
+	}
 };
 
 class Terrain {
