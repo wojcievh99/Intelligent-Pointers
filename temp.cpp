@@ -10,12 +10,7 @@ public:
 	int height;
 	std::string name;
 	bool climbable;
-	std::shared_ptr<std::vector<std::string>> people;
-	std::vector<std::string>* people2;
-
-	~Mountain() {
-		delete people2;
-	}
+	std::shared_ptr<std::vector<std::string>> people, people2;
 };
 
 class Terrain {
@@ -47,10 +42,9 @@ int main()
 	std::shared_ptr<Mountain> m1 = 
 		std::make_shared<Mountain>(8848, "Everest", true, 
 			std::make_shared<std::vector<std::string>>(), // people
-			new std::vector<std::string>({ "LL", "WW" }) // people2
+			std::make_shared<std::vector<std::string>>() // people2
 			);
 	
-	std::cout << m1->people2 << std::endl;
 	m1->people->push_back("KK");
 	m1->people->push_back("MD");
 	m1->people->push_back("KGB");
@@ -60,6 +54,12 @@ int main()
 		std::cout << "\t" << person << std::endl;
 	}
 
+	m1->people2->push_back("ROLAND");
+	m1->people2->push_back("AUGUSTUS");
+	m1->people2->push_back("AURELIUSZ");
+
+	m1->people2->erase(m1->people2->begin());
+
 	std::cout << "People who didn't climbed the " << m1->name << ":\n";
 	for (const auto& person : *(m1->people2)) {
 		std::cout << "\t" << person << std::endl;
@@ -68,7 +68,7 @@ int main()
 	std::shared_ptr<Mountain> mt =
 		std::make_shared<Mountain>(8586, "Kanczenczonga", true,
 			std::make_shared<std::vector<std::string>>(), // people
-			new std::vector<std::string>({ "XX", "YY" }) // people2
+			std::make_shared<std::vector<std::string>>() // people2
 		);
 
 	// weak
